@@ -8,12 +8,8 @@ jobs:
   print-comment:
     runs-on: ubuntu-latest
     steps:
-      - name: Show event payload path
-        run: echo "Event JSON: $GITHUB_EVENT_PATH"
-
       - name: Print issue/PR number, type, and comment
         run: |
-          # read useful fields from the event JSON
           number=$(jq -r .issue.number < "$GITHUB_EVENT_PATH")
           is_pr=$(jq -r 'has("pull_request") and (.pull_request != null)' < "$GITHUB_EVENT_PATH")
           comment=$(jq -r .comment.body < "$GITHUB_EVENT_PATH")
